@@ -1,16 +1,48 @@
-# React + Vite
+# ASL Gesture Recognition System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, full-stack American Sign Language (ASL) gesture recognition web application. 
 
-Currently, two official plugins are available:
+**Live Demo:** [https://ete-final.vercel.app/](https://ete-final.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Architecture & Deployment
 
-## React Compiler
+This project uses a decoupled architecture, completely hosted for free:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Frontend (Deployed on Vercel)
+- **Framework**: React.js (Vite) + Tailwind CSS 3.4.17
+- **Features**: 
+  - Drag-and-drop Image Upload
+  - Real-time Webcam capture with target reticle
+  - Premium Dark UI (Glassmorphism, animations)
+- **Live URL**: `https://ete-final.vercel.app/`
 
-## Expanding the ESLint configuration
+### 2. Backend API (Deployed on Hugging Face Spaces)
+- **Framework**: FastAPI (Python)
+- **AI Model**: TensorFlow/Keras CNN (`asl_model.h5`) predicting 29 ASL classes.
+- **Hosting**: Deployed via Docker container on Hugging Face Spaces (16GB RAM) to accommodate the 163MB model footprint.
+- **Live URL**: `https://ram49k-asl-gesture.hf.space`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Local Development
+
+### Frontend
+```bash
+# Install dependencies
+npm install
+
+# Run dev server
+npm run dev
+```
+
+### Backend
+*(Note: requires the 163MB `asl_model (1).h5` file inside the `Backend/` folder)*
+```bash
+cd Backend
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+# Run FastAPI server
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
